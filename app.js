@@ -83,7 +83,12 @@
     stage.append(list);
   }
 
+  function goal(name) {
+    if (typeof ym === "function") ym(114415095, "reachGoal", name);
+  }
+
   function drawMorning(scene) {
+    goal("finished");
     stage.append(blocks(scene.blocks));
     const phone = el("section", "phone");
     const header = document.createElement("header");
@@ -112,6 +117,16 @@
     const coda = el("p", "coda", "Сообщение не ушло. Вторая серия начнётся, когда он ответит.");
     coda.hidden = true;
     stage.append(coda);
+
+    const next = el("button", "go next-episode", "Читать 2 серию");
+    next.type = "button";
+    next.addEventListener("click", function () {
+      if (next.disabled) return;
+      goal("episode2");
+      next.disabled = true;
+      next.textContent = "Вторая серия ещё пишется";
+    });
+    stage.append(next);
 
     const again = el("button", "again", "Сначала");
     again.type = "button";
